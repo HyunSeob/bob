@@ -1,0 +1,30 @@
+{
+  "name": "bob",
+  "version": "0.1.0",
+  "description": "Law&Company slack bot for happy bob(meal) time.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/HyunSeob/bob.git"
+  },
+  "keywords": [
+    "slack",
+    "bot"
+  ],
+  "author": "HyunSeob <sytte1017@gmail.com> (http://hyunseob.github.io)",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/HyunSeob/bob/issues"
+  },
+  "homepage": "https://github.com/HyunSeob/bob#readme",
+  "dependencies": {
+    "dotenv": "^2.0.0",
+    "mysql": "^2.10.2",
+    "sequelize": "^3.19.3",
+    "slackbots": "^0.5.1",
+    "sqlite3": "^3.1.1"
+  }
+}
