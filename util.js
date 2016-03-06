@@ -2,6 +2,8 @@
 
 require('dotenv').config();
 const channelId = process.env.SLACK_BOT_CHANNEL;
+const moment = require('moment');
+moment.locale('ko');
 
 function getRandomRGB() {
   let letters ='0123456789ABCDEF'.split('');
@@ -13,20 +15,25 @@ function getRandomRGB() {
 }
 
 function parseUserMessage(bot, text) {
-  return text.replace(bot.user.id, '').replace('@밥', '').split(' ').filter((str) => str !== '');
+  return text.replace(`<@${bot.user.id}>`, '').replace('@밥', '').split(' ').filter((str) => str !== '');
 }
 
 function isBobMentioned(bot, data) {
-  return data.text && (data.text.includes(bot.user.id) || data.text.includes('@밥'));
+  return data.user && data.text && (data.text.includes(bot.user.id) || data.text.includes('@밥'));
 }
 
 function isBobChannel(bot, data) {
-  return data.channel && data.channel === channelId;
+  return data.user && data.channel && data.channel === channelId;
+}
+
+function formatTime(time) {
+  return moment(time).format('YYYY년 M월 D일 A h시');
 }
 
 module.exports = {
   getRandomRGB: getRandomRGB,
   parseUserMessage: parseUserMessage,
   isBobMentioned: isBobMentioned,
-  isBobChannel: isBobChannel
+  isBobChannel: isBobChannel,
+  formatTime: formatTime
 };

@@ -15,8 +15,12 @@ module.exports = {
       value: '명령어 목록을 보여줄게!',
       short: true
     }, {
+      title: '@밥 가게',
+      value: '가게 목록을 전부 보여줄게!',
+      short: true
+    }, {
       title: '@밥 추천',
-      value: '맛있는 밥 추천해줄게!',
+      value: '맛있는 가게 추천해줄게!',
       short: true
     }, {
       title: '@밥 기록',

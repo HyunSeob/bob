@@ -1,7 +1,7 @@
 'use strict';
 
 module.exports = function(sequelize, DataTypes) {
-  let User = sequelize.define('user', {
+  let User = sequelize.define('User', {
     slack_id: {
       type: DataTypes.STRING,
       primaryKey: true

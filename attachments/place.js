@@ -2,9 +2,9 @@
 
 const u = require('../util');
 
-module.exports = function (place) {
+module.exports = function(place, icon) {
   return {
-    icon_emoji: ':thinking_face:',
+    icon_emoji: icon || ':thinking_face:',
     attachments: [{
       color: u.getRandomRGB(),
       title: place.name,
@@ -15,6 +15,10 @@ module.exports = function (place) {
       }, {
         title: '가격대',
         value: place.price,
+        short: true
+      }, {
+        title: '제보자',
+        value: `@${place.informer}`,
         short: true
       }]
     }]

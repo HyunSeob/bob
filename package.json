@@ -22,6 +22,7 @@
   "homepage": "https://github.com/HyunSeob/bob#readme",
   "dependencies": {
     "dotenv": "^2.0.0",
+    "moment": "^2.11.2",
     "mysql": "^2.10.2",
     "sequelize": "^3.19.3",
     "slackbots": "^0.5.1",

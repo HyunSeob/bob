@@ -1,24 +1,17 @@
 'use strict';
 
 module.exports = function(sequelize, DataTypes) {
-  let Place = sequelize.define('Place', {
+  let Rating = sequelize.define('Rating', {
     id: {
       type: DataTypes.INTEGER,
       primaryKey: true,
       autoIncrement: true
     },
-    name: {
-      type: DataTypes.STRING,
-      allowNull: false
-    },
-    desc: {
-      type: DataTypes.STRING,
-      allowNull: false
-    },
-    price: {
+    rating: {
       type: DataTypes.INTEGER,
       allowNull: true
     }
   });
-  return Place;
-}
+
+  return Rating;
+};
