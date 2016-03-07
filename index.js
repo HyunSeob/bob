@@ -22,7 +22,7 @@ let users = {};
 let channels = {};
 let groups = {};
 
-db.sequelize.sync({ force: 1 });
+db.sequelize.sync();
 
 function cancelAllState(bot, user, receiver) {
   user.state = 'none';
@@ -65,11 +65,14 @@ bot.on('message', function(data) {
   if (u.isBobMentioned(bot, data) || u.isBobChannel(bot, data) && data.text) {
     let args = u.parseUserMessage(bot, data.text);
 
-    if (args[0] === '명령') {
+    if (args[0] === '안녕') {
+      bot.postTo(receiver, '안녕! 나는 로앤컴퍼니의 점심 메뉴 선택을 책임지기 위해서 태어난 밥이야!\n뭘 할 수 있는지 궁금하면 `@밥 명령`을 입력해봐!', { icon_emoji: ':grin:' });
+    } else if (args[0] === '명령') {
       bot.postTo(receiver, '내가 뭘 도와줄까?', attachments.commands);
     } else if (args[0] === '등록') {
       bot.postTo(receiver, '우와! 가게를 등록할거야? 가게 이름을 말해줘.\n하다가 잘못 입력하면 `취소`라고 해줘!', { icon_emoji: ':blushblush:' });
       users[data.user].state = 'registPlace1';
+      return;
     } else if (args[0] === '추천') {
       db.Place
       .count()
@@ -100,6 +103,7 @@ bot.on('message', function(data) {
     } else if (args[0] === '기록') {
       bot.postTo(receiver, '식사 기록을 남기면 추천이 정확해 질거야! 가게 이름이 뭐야?\n잘못 입력했으면 `취소`라고 해줘!', { icon_emoji: ':kissing:' });
       users[data.user].state = 'record1';
+      return;
     } else if (args[0] === '로그') {
       db.Log.findAll({
         where: { UserSlackId: data.user },
@@ -146,10 +150,7 @@ _맛있는 점심 드세요!_
 
     } else if (args[0] === '취소') {
       cancelAllState(bot, users[data.user], receiver);
-    } else {
-      bot.postTo(receiver, '안녕! 나는 로앤컴퍼니의 점심 메뉴 선택을 책임지기 위해서 태어난 밥이야!\n뭘 할 수 있는지 궁금하면 `@밥 명령`을 입력해봐!', { icon_emoji: ':grin:' });
     }
-    return;
   }
 
   // Only for specific state

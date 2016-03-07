@@ -15,7 +15,13 @@ function getRandomRGB() {
 }
 
 function parseUserMessage(bot, text) {
-  return text.replace(`<@${bot.user.id}>`, '').replace('@밥', '').split(' ').filter((str) => str !== '');
+  let re = new RegExp(`<@${bot.user.id}>?:`, 'g');
+  
+  return text
+  .replace(re, '')
+  .replace('@밥', '')
+  .split(' ')
+  .filter((str) => str !== '');
 }
 
 function isBobMentioned(bot, data) {
