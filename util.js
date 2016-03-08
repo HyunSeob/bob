@@ -16,7 +16,7 @@ function getRandomRGB() {
 
 function parseUserMessage(bot, text) {
   let re = new RegExp(`<@${bot.user.id}>?:`, 'g');
-  
+
   return text
   .replace(re, '')
   .replace('@밥', '')
@@ -33,7 +33,7 @@ function isBobChannel(bot, data) {
 }
 
 function formatTime(time) {
-  return moment(time).format('YYYY년 M월 D일 A h시');
+  return moment(time).utcOffset('+0900').format('YYYY년 M월 D일 A h시');
 }
 
 module.exports = {
