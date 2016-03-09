@@ -33,7 +33,7 @@ function cancelAllState(bot, user, receiver) {
 bot.on('start', function() {
   bot.user = bot.users.filter((user) => user.name === bot.name)[0];
   // Create unregistered users And load all user's data.
-  bot.users.map(function (user) {
+  bot.users.map(function(user) {
     if (user.id && user.name) {
       db.User.findOrCreate({
         where: { slack_id: user.id },
@@ -50,8 +50,11 @@ bot.on('start', function() {
       });
     }
   });
-  bot.channels.map(function (channel) {
+  bot.channels.map(function(channel) {
     channels[channel.id] = channel;
+  });
+  bot.groups.map(function(group) {
+    channels[group.id] = group;
   });
 });
 
