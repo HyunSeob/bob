@@ -15,7 +15,7 @@ function getRandomRGB() {
 }
 
 function parseUserMessage(bot, text) {
-  let re = new RegExp(`<@${bot.user.id}>?:`, 'g');
+  let re = new RegExp(`<@${bot.user.id}>:?`, 'g');
 
   return text
   .replace(re, '')
