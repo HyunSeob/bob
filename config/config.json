@@ -1,16 +1,10 @@
 {
   "development": {
-    "database": "bob",
     "dialect": "mysql",
-    "username": "root",
-    "host": "127.0.0.1",
-    "password": null
+    "host": "127.0.0.1"
   },
   "production": {
-    "database": "bob",
     "dialect": "mysql",
-    "username": "root",
-    "host": "127.0.0.1",
-    "password": null
+    "host": "127.0.0.1"
   }
 }
