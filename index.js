@@ -73,8 +73,13 @@ bot.on('message', function(data) {
     } else if (args[0] === '명령') {
       bot.postTo(receiver, '내가 뭘 도와줄까?', attachments.commands);
     } else if (args[0] === '등록') {
-      bot.postTo(receiver, '우와! 가게를 등록할거야? 가게 이름을 말해줘.\n하다가 잘못 입력하면 `취소`라고 해줘!', { icon_emoji: ':blushblush:' });
-      users[data.user].state = 'registPlace1';
+      if (u.isBobChannel(bot, data)) {
+        bot.postTo(receiver, '우와! 가게를 등록할거야? 가게 이름을 말해줘.\n하다가 잘못 입력하면 `취소`라고 해줘!', { icon_emoji: ':blushblush:' });
+        users[data.user].state = 'registPlace1';
+        return;
+      } else {
+        bot.postTo(receiver, '`등록`은 DM으로 부탁해!', { icon_emoji: ':sweat_smile:' });
+      }
       return;
     } else if (args[0] === '추천') {
       db.Place
@@ -104,9 +109,13 @@ bot.on('message', function(data) {
         bot.postTo(receiver, '가게 목록이야.', attachments.places(places));
       });
     } else if (args[0] === '기록') {
-      bot.postTo(receiver, '식사 기록을 남기면 추천이 정확해 질거야! 가게 이름이 뭐야?\n잘못 입력했으면 `취소`라고 해줘!', { icon_emoji: ':kissing:' });
-      users[data.user].state = 'record1';
-      return;
+      if (u.isBobChannel(bot, data)) {
+        bot.postTo(receiver, '식사 기록을 남기면 추천이 정확해 질거야! 가게 이름이 뭐야?\n잘못 입력했으면 `취소`라고 해줘!', { icon_emoji: ':kissing:' });
+        users[data.user].state = 'record1';
+        return;
+      } else {
+        bot.postTo(receiver, '`기록`은 DM으로 부탁해!', { icon_emoji: ':sweat_smile:' });
+      }
     } else if (args[0] === '로그') {
       db.Log.findAll({
         where: { UserSlackId: data.user },
