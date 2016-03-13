@@ -82,15 +82,10 @@ bot.on('message', function(data) {
       }
       return;
     } else if (args[0] === '추천') {
-      db.Place
-      .count()
-      .then(function(count) {
-        return db.Place.findOne({
-          where: { id: 1 + Math.floor(Math.random() * count) },
-          include: { model: db.User }
-        });
-      })
-      .then(function(place) {
+      db.Place.findOne({
+        order: [ db.Sequelize.fn('RAND') ],
+        include: { model: db.User }
+      }).then(function(place) {
         bot.postTo(
           receiver,
           '오늘은 여기 어때?',
@@ -132,34 +127,19 @@ Copyright (c) 2016, HyunSeob. Licensed under the MIT license.
 _맛있는 점심 드세요!_
         `, { icon_emoji: ':grin:' }
       );
-    } else if (args[0] === '테스트') {
-      return;
-
-      let userObject = {};
-      let ratingObject = {};
-      let placeObject = {};
-
-      db.User
-      .findOne({ where: { slack_id: data.user } })
-      .then(function(user) {
-        userObject = user;
-        return db.Place.create({
-          name: '돈뜰',
-          desc: '테스트 중',
-          price: 6000
-        });
-      })
-      .then(function(place) {
-        placeObject = place;
-        return db.Rating.create({ rating: 5 });
-      })
-      .then(function(rating) {
-        placeObject.addRating(rating);
-        return userObject.addRating(rating);
-      })
-      .then(() => userObject.getRatings())
-      .then((ratings) => console.log('Ratings', ratings));
-
+    } else if (args[0] === '투표') {
+      args[1] = parseInt(args[1]);
+      if (args[1] && (args[1] > 5 || args[1] < 2) ) {
+        bot.postTo(receiver, '이상한 숫자 입력하지마..', { icon_emoji: ':confounded:' });
+        return;
+      }
+      db.Place.findAll({
+        limit: args[1] || 3,
+        order: [ db.Sequelize.fn('RAND') ],
+        include: { model: db.User }
+      }).then(function(places) {
+        bot.postTo(receiver, '가고 싶은 곳 번호로 Add Reaction!', attachments.poll(places));
+      });
     } else if (args[0] === '취소') {
       cancelAllState(bot, users[data.user], receiver);
     }
