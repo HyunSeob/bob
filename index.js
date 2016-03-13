@@ -121,7 +121,7 @@ bot.on('message', function(data) {
     } else if (args[0] === '뭐야') {
       bot.postTo(
         receiver,
-        `>>> *밥* v0.1.0
+        `>>> *밥* v0.1.1
 https://github.com/HyunSeob/bob
 Copyright (c) 2016, HyunSeob. Licensed under the MIT license.
 _맛있는 점심 드세요!_
