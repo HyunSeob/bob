@@ -23,6 +23,10 @@ module.exports = {
       value: '맛있는 가게 추천해줄게!',
       short: true
     }, {
+      title: '@밥 투표 [$추천 숫자]',
+      value: '오늘 점심 메뉴 투표해보자!',
+      short: true
+    }, {
       title: '@밥 기록',
       value: '식사 후에 기록 남기는 것 잊지마!',
       short: true
